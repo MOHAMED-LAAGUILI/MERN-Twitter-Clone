@@ -13,18 +13,16 @@ const app = express();
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
-app.use(cors({
-    origin:"http://localhost:",
-    credentials:true
-})); // Enable Cross-Origin Resource Sharing
+app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(cookieParser()); // Parse cookies
+app.use(express.urlencoded({extended:true}))// parse form data 
 
-app.get('/api/auth', authRoute);
+app.use('/api/auth', authRoute);
 
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    connectDB();
+app.listen(PORT, async () => {
+    await connectDB();
     console.warn(`Server is running on http://localhost:${PORT}`);
 });
