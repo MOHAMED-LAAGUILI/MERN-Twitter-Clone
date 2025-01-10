@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../modules/user.model.js";
+import User from "../modules/users.model.js";
 
 export const protectedRoute = async (req, res, next) => {
   try {
@@ -8,7 +8,9 @@ export const protectedRoute = async (req, res, next) => {
 
     // Check if token exists
     if (!token) {
-      return res.status(401).json({ error_message: "Unauthorized. Token missing." });
+      return res
+        .status(401)
+        .json({ error_message: "Unauthorized. Token missing." });
     }
 
     // Verify the token
